@@ -1,7 +1,8 @@
 var canvas,
     context,
     dragging = false, //this will be dragging if mouse move is followed by mouse down
-    dragStartLocation;
+    dragStartLocation,
+    snapshot;
 
 //getBoundingClientRect
 //The returned value is a DOMRect object, which contains read-only left, top, right and
@@ -19,6 +20,16 @@ function getCanvasCoordinates(event){
   return {x: x, y:y};
 }
 
+//this avoids dragging the image
+//The getImageData() method returns an ImageData object that copies the pixel data for the specified rectangle on a canvas.
+ function takeSnapShot () {
+  snapshot = context.getImageData(0,0, canvas.width, canvas.height);
+}
+//These must be added to dragStart()
+ function restoreSnapShot () {
+  context.putImageData(snapshot,0,0);
+}
+
 function drawLine(position){
   context.beginPath();
   context.moveTo(dragStartLocation.x, dragStartLocation.y);//this will be the first point and during mouse up the line will be drawn
@@ -33,6 +44,7 @@ function dragStart(event) {
 
   dragging = true;
   dragStartLocation = getCanvasCoordinates(event);
+  takeSnapShot();
 
 }
 function drag(event) {
@@ -52,6 +64,7 @@ function dragStop(event) {
   // console.log(getCanvasCoordinates(event));
 
   dragging = false; //dragging stops here
+  restoreSnapShot();
   var position = getCanvasCoordinates(event);
   drawLine(position);
 
