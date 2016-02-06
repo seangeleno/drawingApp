@@ -48,12 +48,27 @@ function drawCircle (position){ //takes position during mouse up
   context.fill();
 }
 
+function drawPolygon (position, sides, angle){
+  var coordinates = [],
+  radius = Math.sqrt(Math.pow((dragStartLocation.x - position.x),2) + Math.pow((dragStartLocation.y - position.y), 2)),
+  index = 0;
 
+  for(index = 0 ; index < sides; index++){
+    coordinates.push({x:dragStartLocation.x + radius*Math.cos(angle) , y:dragStartLocation.y - radius* Math.sin(angle)})
+    angle += ( 2 * Math.PI) / sides;
+  }
 
+  context.beginPath();
+  context.moveTo(coordinates[0].x, coordinates[0].y);
 
+  for(index = 0; index < sides; index++){
+    context.lineTo(coordinates[index].x, coordinates[index].y);
+  }
 
+  context.closePath();
+  context.fill();
 
-
+}
 
 //define dragstart, drag and dragStop
 function dragStart(event) {
@@ -73,8 +88,9 @@ function drag(event) {
   if (dragging === true) {
     position = getCanvasCoordinates(event);
     //pass position into drawLine
-    drawCircle(position);
-    drawLine(position);
+    // drawCircle(position);
+    // drawLine(position);
+    drawPolygon(position, 4, 0);
   }
 
  }
@@ -85,8 +101,9 @@ function dragStop(event) {
   dragging = false; //dragging stops here
   restoreSnapShot();
   var position = getCanvasCoordinates(event);
-  drawCircle(position);
-  drawLine(position);
+  // drawCircle(position);
+  // drawLine(position);
+  drawPolygon(position, 4, 0);
 
 }
 
@@ -97,6 +114,9 @@ function init(){
   context.strokeStyle = 'rebeccapurple';
   context.lineWidth = 6;
   context.lineCap = 'square';
+
+  //shapes made transparent by overlapping shapes
+  context.globalCompositeOperation = 'xor';
 
   //mouseup,down, drag - will be used in functions above
   canvas.addEventListener('mousedown', dragStart, false);
