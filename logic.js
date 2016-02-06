@@ -45,7 +45,7 @@ function drawCircle (position){ //takes position during mouse up
   //To create a circle with arc(): Set start angle to 0 and end angle to 2*Math.PI
 
   context.arc(dragStartLocation.x, dragStartLocation.y, radius, 0, 2*Math.PI);
-  context.fill();
+  // context.fill();
 }
 
 function drawPolygon (position, sides, angle){
@@ -66,8 +66,27 @@ function drawPolygon (position, sides, angle){
   }
 
   context.closePath();
-  context.fill();
+  // context.fill();
 
+}
+
+function draw(position){
+  var fillBox = document.getElementById("fillBox"),
+  shape = document.querySelector('input[type="radio"][name="shape"]:checked').value;
+  if (shape === "circle") {
+    drawCircle(position);
+  }
+  if (shape === "square") {
+    drawPolygon(position, 4, Math.PI / 4);
+  }
+  if (shape === "line") {
+    drawLine(position);
+  }
+  if (fillBox.checked){
+    context.fill();
+  } else {
+    context.stroke();
+  }
 }
 
 //define dragstart, drag and dragStop
@@ -86,9 +105,10 @@ function drag(event) {
 
   var position;
   if (dragging === true) {
+    restoreSnapShot();
     position = getCanvasCoordinates(event);
-    //circle
-    // drawCircle(position);
+    //generic
+    draw(position, "circle")
 
     //straight line
     // drawLine(position);
@@ -100,7 +120,7 @@ function drag(event) {
     // drawPolygon(position, 4, Math.PI / 4);
 
     //normal hexagon
-    drawPolygon(position, 6, Math.PI / 6);
+    // drawPolygon(position, 6, Math.PI / 6);
 
     //the higher the number, the closer it gets to a circle
   }
@@ -113,8 +133,8 @@ function dragStop(event) {
   dragging = false; //dragging stops here
   restoreSnapShot();
   var position = getCanvasCoordinates(event);
-  //circle
-  // drawCircle(position);
+  //generic
+  draw(position, "circle")
 
   //straight line
   // drawLine(position);
@@ -126,19 +146,25 @@ function dragStop(event) {
   // drawPolygon(position, 4, Math.PI / 4);
 
   //normal hexagon
-  drawPolygon(position, 6, Math.PI / 6);
+  // drawPolygon(position, 6, Math.PI / 6);
 
   //the higher the number, the closer it gets to a circle
 
 }
+
+
 
 //function invoked when document is fully loaded
 function init(){
   canvas = document.getElementById('canvas');
   context = canvas.getContext('2d');
   context.strokeStyle = 'rebeccapurple';
+  context.fillStyle = 'red';
+  // var imgElement = document.getElementById('logo');
+  // context.fillStyle = context.createPattern(imgElement, 'repeat');
   context.lineWidth = 6;
   context.lineCap = 'square';
+
 
   //shapes made transparent by overlapping shapes
   context.globalCompositeOperation = 'xor';

@@ -8,18 +8,27 @@
 
   </head>
   <body>
-
-    <form class="pure-form pure-form-stacked">
+<div class="controls">
+    <!-- <form class="pure-form pure-form-stacked">
       <fieldset>
           <label for="shapes">Pick A Shape</label>
           <select id="shape">
-              <option class='rect'>Rectangle</option>
+              <option value='rect'>Rectangle</option>
               <option class='square'>Square</option>
               <option class='ellipse'>Ellipse</option>
               <option class='circle'>Circle</option>
               <option class='textbox'>Textbox</option>
-          </select>
+          </select> -->
+          <p><input type="radio" name="shape" value="line" checked="checked"> Line</p>
+          <p><input type="radio" name="shape" value="circle" checked="checked"> circle</p>
+          <p><input type="radio" name="shape" value="polygon" checked="checked"> polygon</p>
+          <label for="fillBox" class="pure-checkbox">
+            <input id="fillBox" type="checkbox"> Fill
+          </label>
+</div>
 <canvas id="canvas" width="650" height="800"></canvas>
+
+
 
 <button class="pure-button pure-button-primary" name="button">PureCSS</button>
 
