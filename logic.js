@@ -87,10 +87,22 @@ function drag(event) {
   var position;
   if (dragging === true) {
     position = getCanvasCoordinates(event);
-    //pass position into drawLine
+    //circle
     // drawCircle(position);
+
+    //straight line
     // drawLine(position);
-    drawPolygon(position, 4, 0);
+
+    //sideways square
+    // drawPolygon(position, 4, 0);
+
+    //normal square
+    // drawPolygon(position, 4, Math.PI / 4);
+
+    //normal hexagon
+    drawPolygon(position, 6, Math.PI / 6);
+
+    //the higher the number, the closer it gets to a circle
   }
 
  }
@@ -101,9 +113,22 @@ function dragStop(event) {
   dragging = false; //dragging stops here
   restoreSnapShot();
   var position = getCanvasCoordinates(event);
+  //circle
   // drawCircle(position);
+
+  //straight line
   // drawLine(position);
-  drawPolygon(position, 4, 0);
+
+  //sideways square
+  // drawPolygon(position, 4, 0);
+
+  //normal square
+  // drawPolygon(position, 4, Math.PI / 4);
+
+  //normal hexagon
+  drawPolygon(position, 6, Math.PI / 6);
+
+  //the higher the number, the closer it gets to a circle
 
 }
 
