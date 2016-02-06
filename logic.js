@@ -37,6 +37,24 @@ function drawLine(position){
   context.stroke(); // The stroke() method actually draws the path you have defined with all those moveTo() and lineTo() methods. So Cool!
 }
 
+function drawCircle (position){ //takes position during mouse up
+
+  var radius = Math.sqrt(Math.pow((dragStartLocation.x - position.x),2) + Math.pow((dragStartLocation.y - position.y), 2));
+  context.beginPath();
+  //The arc() method creates an arc/curve (used to create circles, or parts of circles).
+  //To create a circle with arc(): Set start angle to 0 and end angle to 2*Math.PI
+
+  context.arc(dragStartLocation.x, dragStartLocation.y, radius, 0, 2*Math.PI);
+  context.fill();
+}
+
+
+
+
+
+
+
+
 //define dragstart, drag and dragStop
 function dragStart(event) {
   // console.log("Drag Start");
@@ -55,6 +73,7 @@ function drag(event) {
   if (dragging === true) {
     position = getCanvasCoordinates(event);
     //pass position into drawLine
+    drawCircle(position);
     drawLine(position);
   }
 
@@ -66,8 +85,8 @@ function dragStop(event) {
   dragging = false; //dragging stops here
   restoreSnapShot();
   var position = getCanvasCoordinates(event);
+  drawCircle(position);
   drawLine(position);
-
 
 }
 
