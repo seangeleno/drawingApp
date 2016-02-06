@@ -3,19 +3,19 @@ var canvas,
 
 
 //define dragstart, drag and dragStop
-function dragStart() {
-
+function dragStart(event) {
+  console.log("Drag Start");
 }
-function drag() {
-
+function drag(event) {
+  console.log('mouse move is working');
 }
-function dragStop() {
-
+function dragStop(event) {
+  console.log('dragStop');
 }
 
 //function invoked when document is fully loaded
 function init(){
-  cavas = docElementById('canvas');
+  canvas = document.getElementById('canvas');
   context = canvas.getContext('2d');
   context.strokeStyle = 'rebeccapurple';
   context.lineWidth = 6;
