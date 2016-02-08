@@ -8,9 +8,11 @@ canvas {
   top: 100px;
   left: 100px;
   border: 1px solid gray;
+  margin-left:200px;
+  margin-top: 30px;
 }
 
-#controls {
+.controls {
   position: absolute;
   top: 100px;
   left: 5px;
@@ -18,4 +20,8 @@ canvas {
   border: 1px solid gray;
   border-radius: 10px;
   box-shadow: 2px 2px 12px lightskyblue;
+}
+
+h1 {
+  margin-left: 300px;
 }
