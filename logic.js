@@ -165,6 +165,16 @@ function changeStrokeStyle(){
   event.stopPropagation();
 }
 
+//backgroundColor
+function changeBackgroundColor(){
+  context.save();
+  context.fillStyle = document.getElementById('backgroundColor').value;
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  context.restore();
+
+  //more info on save() and resote() www.html5.litten.com/understanding-save-and-restore-for-the-canvas-context/
+}
+
 //function invoked when document is fully loaded
 function init(){
   canvas = document.getElementById('canvas');
@@ -172,7 +182,8 @@ function init(){
 
   var lineWidth = document.getElementById('lineWidth'),
   fillColor = document.getElementById('fillColor'),
-  strokeColor = document.getElementById('strokeColor');
+  strokeColor = document.getElementById('strokeColor'),
+  canvasColor = document.getElementById('backgroundColor')
   // context.strokeStyle = 'rebeccapurple';
 
   // var imgElement = document.getElementById("logo");
@@ -194,6 +205,7 @@ function init(){
   lineWidth.addEventListener('input', changeLineWidth, false);
   fillColor.addEventListener('input', changeFillStyle, false);
   strokeColor.addEventListener('input', changeStrokeStyle, false);
+  canvasColor.addEventListener('input', changeBackgroundColor, false);
 }
 
 window.addEventListener('load', init, false);
