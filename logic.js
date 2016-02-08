@@ -152,21 +152,27 @@ function changeLineWidth(){
   event.stopPropagation();
 }
 
+function changeFillStyle(){
+  context.fillStyle = this.value;
+  event.stopPropagation();
+}
+
 //function invoked when document is fully loaded
 function init(){
   canvas = document.getElementById('canvas');
   context = canvas.getContext('2d');
+
+  var lineWidth = document.getElementById('lineWidth'),
+  fillColor = document.getElementById('fillColor');
   context.strokeStyle = 'rebeccapurple';
-  context.fillStyle = 'red';
+
   // var imgElement = document.getElementById("logo");
   // context.fillStyle = context.createPattern(imgElement, 'repeat');
-  context.lineWidth = 6;
+  context.lineWidth = lineWidth.value;
   context.lineCap = 'square';
-
+  context.fillStyle = fillColor.value;
   //shapes made transparent by overlapping shapes
   context.globalCompositeOperation = 'xor';
-
-  var lineWidth = document.getElementById('lineWidth');
 
 
   //mouseup,down, drag - will be used in functions above
@@ -174,6 +180,7 @@ function init(){
   canvas.addEventListener('mousemove', drag, false);
   canvas.addEventListener('mouseup', dragStop, false);
   lineWidth.addEventListener('input', changeLineWidth, false);
+  fillColor.addEventListener('input', changeFillStyle, false);
 }
 
 window.addEventListener('load', init, false);
