@@ -145,6 +145,13 @@ function dragStop(event) {
   draw(position)
 }
 
+function changeLineWidth(){
+  context.lineWidth = this.value;
+  //**important**
+  //event.stopPropagation() prevents the vent from bubblim up the DOM tree, preventing any parent handlers from being notified of the event.
+  event.stopPropagation();
+}
+
 //function invoked when document is fully loaded
 function init(){
   canvas = document.getElementById('canvas');
@@ -159,10 +166,14 @@ function init(){
   //shapes made transparent by overlapping shapes
   context.globalCompositeOperation = 'xor';
 
+  var lineWidth = document.getElementById('lineWidth');
+
+
   //mouseup,down, drag - will be used in functions above
   canvas.addEventListener('mousedown', dragStart, false);
   canvas.addEventListener('mousemove', drag, false);
   canvas.addEventListener('mouseup', dragStop, false);
+  lineWidth.addEventListener('input', changeLineWidth, false);
 }
 
 window.addEventListener('load', init, false);
