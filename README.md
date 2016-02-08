@@ -1,5 +1,6 @@
 Exercise 1: Basic OOD & Solution Design
 
+###Go to https://www.bitballoon.com/sites/sean-drawingapp to visit the app
 ----------------------------------------------------
 
 #Simple Web Application which simulates a vector-based drawing package.
