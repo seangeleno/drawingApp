@@ -89,7 +89,12 @@ function draw(position){
   var fillBox = document.getElementById("fillBox"),
   shape = document.querySelector('input[type="radio"][name="shape"]:checked').value,
   polygonSides = document.getElementById('polygonSides').value,
-  polygonAngle = document.getElementById('polygonAngle').value;
+  polygonAngle = document.getElementById('polygonAngle').value,
+  lineCap = document.querySelector('input[type="radio"][name="lineCap"]:checked').value;
+
+  //global context
+   context.lineCap = lineCap;
+   //we don't need even't handlers because before drawing we are jsut taking a default value
 
   if (shape === "circle") {
     drawCircle(position);
@@ -173,7 +178,10 @@ function init(){
   // var imgElement = document.getElementById("logo");
   // context.fillStyle = context.createPattern(imgElement, 'repeat');
   context.lineWidth = lineWidth.value;
-  context.lineCap = 'square';
+
+  // no need for linecap will be defined directly by user
+  // context.lineCap = 'square';
+
   context.fillStyle = fillColor.value;
   //shapes made transparent by overlapping shapes
   context.globalCompositeOperation = 'xor';
