@@ -37,15 +37,29 @@ function drawLine(position){
   context.stroke(); // The stroke() method actually draws the path you have defined with all those moveTo() and lineTo() methods. So Cool!
 }
 
+//The arc() method creates an arc/curve (used to create circles, or parts of circles). To create a circles set start angle to 0 and end angle to 2*Math.PI
 function drawCircle (position){ //takes position during mouse up
 
   var radius = Math.sqrt(Math.pow((dragStartLocation.x - position.x),2) + Math.pow((dragStartLocation.y - position.y), 2));
   context.beginPath();
-  //The arc() method creates an arc/curve (used to create circles, or parts of circles).
-  //To create a circle with arc(): Set start angle to 0 and end angle to 2*Math.PI
-
   context.arc(dragStartLocation.x, dragStartLocation.y, radius, 0, 2*Math.PI);
-  // context.fill();
+
+}
+
+function drawRect (position) {
+  context.beginPath();
+  context.rect(dragStartLocation.x, dragStartLocation.y, position.x, position.y)
+}
+
+
+
+function drawEllipse (position){
+
+  var radius = Math.sqrt(Math.pow((dragStartLocation.x - position.x),2) + Math.pow((dragStartLocation.y - position.y), 2));
+  context.beginPath();
+  //Used the .ellipse method instead of arc to give an extra radius, radius x and radius
+
+  context.ellipse(dragStartLocation.x, dragStartLocation.y, radius, 75, 45, 2 * Math.PI, false);
 }
 
 function drawPolygon (position, sides, angle){
@@ -56,7 +70,7 @@ function drawPolygon (position, sides, angle){
   for(index = 0 ; index < sides; index++){
     coordinates.push({x:dragStartLocation.x + radius*Math.cos(angle) , y:dragStartLocation.y - radius* Math.sin(angle)})
     angle += ( 2 * Math.PI) / sides;
-  }
+  };
 
   context.beginPath();
   context.moveTo(coordinates[0].x, coordinates[0].y);
@@ -81,6 +95,12 @@ function draw(position){
   }
   if (shape === "line") {
     drawLine(position);
+  }
+  if (shape === "ellipse") {
+    drawEllipse(position);
+  }
+  if (shape === "rect") {
+    drawRect(position);
   }
   if (fillBox.checked){
     context.fill();
