@@ -4,22 +4,27 @@
     <meta charset="utf-8">
     <title>Edvard's Canvas Drawer</title>
     <link rel="stylesheet" href="style.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="resources/pure.css" media="screen" title="no title" charset="utf-8">
 
   </head>
   <body>
-    <h1>Sean's Javascript Shape Drawer</h1>
 <div class="controls">
+
           <p><input type="radio" name="shape" value="line" checked="checked"> Line</p>
           <p><input type="radio" name="shape" value="rect" checked="checked"> Rectangle</p>
           <p><input type="radio" name="shape" value="circle" checked="checked"> Circle</p>
           <p><input type="radio" name="shape" value="square" checked="checked"> Square</p>
           <p><input type="radio" name="shape" value="ellipse" checked="ellipse"> Ellipse</p>
+          <p><input type="radio" name="shape" value="polygon" checked="Polygon"> Polygon</p>
+
+          <p><label for="">Polygon Sides: <input id='polygonSides' type='range' step='1' min="3" max="12"</label></p>
+          <!-- pi * 8 = 22.5 -->
+          <p><label for="">Polygon Angle: <input id='polygonAngle' type='range' step='22.5' min="3" max="90"</label></p>
           <label for="fillBox" class="pure-checkbox">
             <input id="fillBox" type="checkbox"> Fill
           </label>
 </div>
-<canvas id="canvas" width="650" height="600"></canvas>
+<!-- <img src="resources/edvard.jpg" alt="" id="logo" /> -->
+<canvas id="canvas" width="650" height="800"></canvas>
 
     <script src="logic.js" charset="utf-8"></script>
   </body>

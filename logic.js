@@ -43,14 +43,8 @@ function drawCircle (position){ //takes position during mouse up
   var radius = Math.sqrt(Math.pow((dragStartLocation.x - position.x),2) + Math.pow((dragStartLocation.y - position.y), 2));
   context.beginPath();
   context.arc(dragStartLocation.x, dragStartLocation.y, radius, 0, 2*Math.PI);
-
+  // context.fill();
 }
-
-function drawRect (position) {
-  context.beginPath();
-  context.rect(dragStartLocation.x, dragStartLocation.y, position.x, position.y)
-}
-
 
 
 function drawEllipse (position){
@@ -61,6 +55,14 @@ function drawEllipse (position){
 
   context.ellipse(dragStartLocation.x, dragStartLocation.y, radius, 75, 45, 2 * Math.PI, false);
 }
+
+
+function drawRect (position) {
+  context.beginPath();
+  context.rect(dragStartLocation.x, dragStartLocation.y, position.x, position.y)
+}
+
+
 
 function drawPolygon (position, sides, angle){
   var coordinates = [],
@@ -86,7 +88,10 @@ function drawPolygon (position, sides, angle){
 
 function draw(position){
   var fillBox = document.getElementById("fillBox"),
-  shape = document.querySelector('input[type="radio"][name="shape"]:checked').value;
+  shape = document.querySelector('input[type="radio"][name="shape"]:checked').value,
+  polygonSides = document.getElementById('polygonSides').value,
+  polygonAngle = document.getElementById('polygonAngle').value;
+
   if (shape === "circle") {
     drawCircle(position);
   }
@@ -102,6 +107,9 @@ function draw(position){
   if (shape === "rect") {
     drawRect(position);
   }
+  if (shape === "polygon") {
+    drawPolygon(position, polygonSides, polygonAngle * (Math.PI / 180));
+  };
   if (fillBox.checked){
     context.fill();
   } else {
@@ -111,68 +119,31 @@ function draw(position){
 
 //define dragstart, drag and dragStop
 function dragStart(event) {
-  // console.log("Drag Start");
-  // console.log(getCanvasCoordinates(event));
 
   dragging = true;
   dragStartLocation = getCanvasCoordinates(event);
   takeSnapShot();
 
 }
+
 function drag(event) {
-//   console.log('mouse move is working');
-//   console.log(getCanvasCoordinates(event));
 
   var position;
   if (dragging === true) {
     restoreSnapShot();
     position = getCanvasCoordinates(event);
     //generic
-    draw(position, "circle")
-
-    //straight line
-    // drawLine(position);
-
-    //sideways square
-    // drawPolygon(position, 4, 0);
-
-    //normal square
-    // drawPolygon(position, 4, Math.PI / 4);
-
-    //normal hexagon
-    // drawPolygon(position, 6, Math.PI / 6);
-
-    //the higher the number, the closer it gets to a circle
+    draw(position)
   }
-
- }
+}
 function dragStop(event) {
-  // console.log('dragStop');
-  // console.log(getCanvasCoordinates(event));
 
   dragging = false; //dragging stops here
   restoreSnapShot();
   var position = getCanvasCoordinates(event);
   //generic
-  draw(position, "circle")
-
-  //straight line
-  // drawLine(position);
-
-  //sideways square
-  // drawPolygon(position, 4, 0);
-
-  //normal square
-  // drawPolygon(position, 4, Math.PI / 4);
-
-  //normal hexagon
-  // drawPolygon(position, 6, Math.PI / 6);
-
-  //the higher the number, the closer it gets to a circle
-
+  draw(position)
 }
-
-
 
 //function invoked when document is fully loaded
 function init(){
@@ -180,11 +151,10 @@ function init(){
   context = canvas.getContext('2d');
   context.strokeStyle = 'rebeccapurple';
   context.fillStyle = 'red';
-  // var imgElement = document.getElementById('logo');
+  // var imgElement = document.getElementById("logo");
   // context.fillStyle = context.createPattern(imgElement, 'repeat');
   context.lineWidth = 6;
   context.lineCap = 'square';
-
 
   //shapes made transparent by overlapping shapes
   context.globalCompositeOperation = 'xor';
