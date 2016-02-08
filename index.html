@@ -11,27 +11,29 @@
 
   <div class="controls">
     <p><input type="radio" name="shape" value="line" checked="checked"> Line</p>
-    <p><input type="radio" name="shape" value="rect" checked="checked"> Rectangle</p>
-    <p><input type="radio" name="shape" value="circle" checked="checked"> Circle</p>
-    <p><input type="radio" name="shape" value="square" checked="checked"> Square</p>
-    <p><input type="radio" name="shape" value="ellipse" checked="ellipse"> Ellipse</p>
-    <p><input type="radio" name="shape" value="polygon" checked="Polygon"> Polygon</p>
+    <p><input type="radio" name="shape" value="rect"> Rectangle</p>
+    <p><input type="radio" name="shape" value="circle"> Circle</p>
+    <p><input type="radio" name="shape" value="square"> Square</p>
+    <p><input type="radio" name="shape" value="ellipse"> Ellipse</p>
+    <p><input type="radio" name="shape" value="polygon"> Polygon</p>
     <br>
     <p><label for="">Line Width: <input id='lineWidth' type='range' step='1' min="1" max="200" value="4"</label></p>
 
-    
-    <p><input name="lineCap" value="round" type='radio'>round</p>
+
+    <p><input name="lineCap" value="round" type='radio' checked="checked">round</p>
     <p><input name="lineCap" value="square" type='radio'>square</p>
 
-
+    <!-- color -->
     <p><label for="">Fill Color: <input id='fillColor' type='color' step='1' value="#24B0D5"</label></p>
     <p><label for="">Stroke Color: <input id='strokeColor' type='color' step='1' </label></p>
+
+    <!-- polygon sides -->
     <p><label for="">Polygon Sides: <input id='polygonSides' type='range' step='1' min="3" max="12"</label></p>
     <!-- pi * 8 = 22.5 -->
     <p><label for="">Polygon Angle: <input id='polygonAngle' type='range' step='22.5' min="3" max="90"</label></p>
-    <label for="fillBox" class="pure-checkbox">
-      <input id="fillBox" type="checkbox"> Fill
-        </label>
+
+    <!-- fill or no fill, you decide -->
+    <p><label>Fill: <input id='fillBox' type='checkbox' checked='checked'></label></p>
   </div>
 <!-- <img src="resources/edvard.jpg" alt="" id="logo" /> -->
 <canvas id="canvas" width="650" height="800"></canvas>
