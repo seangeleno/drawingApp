@@ -18,16 +18,19 @@
     <p><input type="radio" name="shape" value="polygon"> Polygon</p>
     <br>
     <p><label for="">Line Width: <input id='lineWidth' type='range' step='1' min="1" max="200" value="4"</label></p>
-
-
+    <br>
+    Line End:
     <p><input name="lineCap" value="round" type='radio' checked="checked">round</p>
     <p><input name="lineCap" value="square" type='radio'>square</p>
-
+    <br>
     <!-- color -->
     <p><label>Fill Color: <input id='fillColor' type='color' step='1' value="#24B0D5"</label></p>
-    <p><label>Canvas Color: <input id='backgroundColor' type='color' step='1' value="#ffffff"</label></p>
     <p><label>Stroke Color: <input id='strokeColor' type='color' step='1' </label></p>
-
+    <br>
+    <p><label>Background Color: <input id='backgroundColor' type='color' step='1' value="#ffffff"</label></p>
+    *changing background will delete image!
+    <br>
+    <br>
     <!-- polygon sides -->
     <p><label for="">Polygon Sides: <input id='polygonSides' type='range' step='1' min="3" max="12"</label></p>
     <!-- pi * 8 = 22.5 -->
@@ -35,6 +38,9 @@
 
     <!-- fill or no fill, you decide -->
     <p><label>Fill: <input id='fillBox' type='checkbox' checked='checked'></label></p>
+
+    <button type="button" id="clearCanvas" name="button">Clear Canvas</button>
+    <!-- <p><input id="clearCanvas" type="button" value"Clear Canvas"></p> -->
   </div>
 <!-- <img src="resources/edvard.jpg" alt="" id="logo" /> -->
 <canvas id="canvas" width="650" height="800"></canvas>

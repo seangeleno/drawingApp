@@ -173,7 +173,11 @@ function changeBackgroundColor(){
   context.restore();
 
   //more info on save() and resote() www.html5.litten.com/understanding-save-and-restore-for-the-canvas-context/
-}
+};
+
+function eraseCanvas(){
+  context.clearRect(0, 0, canvas.width, canvas.height);
+};
 
 //function invoked when document is fully loaded
 function init(){
@@ -183,7 +187,8 @@ function init(){
   var lineWidth = document.getElementById('lineWidth'),
   fillColor = document.getElementById('fillColor'),
   strokeColor = document.getElementById('strokeColor'),
-  canvasColor = document.getElementById('backgroundColor')
+  canvasColor = document.getElementById('backgroundColor'),
+  clearCanvas = document.getElementById('clearCanvas');
   // context.strokeStyle = 'rebeccapurple';
 
   // var imgElement = document.getElementById("logo");
@@ -206,6 +211,7 @@ function init(){
   fillColor.addEventListener('input', changeFillStyle, false);
   strokeColor.addEventListener('input', changeStrokeStyle, false);
   canvasColor.addEventListener('input', changeBackgroundColor, false);
+  clearCanvas.addEventListener('click', eraseCanvas, false);
 }
 
 window.addEventListener('load', init, false);

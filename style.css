@@ -20,8 +20,29 @@ canvas {
   border: 1px solid gray;
   border-radius: 10px;
   box-shadow: 2px 2px 12px lightskyblue;
+  background: #FF4E50;
+  background: linear-gradient(to left, #FF4E50 , #F9D423);
+  transition: all .5s ease;
+}
+
+.lightBorder {
+  border: 2px solid white;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 h1 {
   margin-left: 300px;
 }
+
+p {
+  margin: 4px;
+}
+
+
+
+/*body {
+background: #FF4E50;
+  background: linear-gradient(to left, #FF4E50 , #F9D423);
+  transition: all .5s ease;
+}*/
