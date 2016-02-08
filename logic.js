@@ -39,7 +39,6 @@ function drawLine(position){
 
 //The arc() method creates an arc/curve (used to create circles, or parts of circles). To create a circles set start angle to 0 and end angle to 2*Math.PI
 function drawCircle (position){ //takes position during mouse up
-
   var radius = Math.sqrt(Math.pow((dragStartLocation.x - position.x),2) + Math.pow((dragStartLocation.y - position.y), 2));
   context.beginPath();
   context.arc(dragStartLocation.x, dragStartLocation.y, radius, 0, 2*Math.PI);
@@ -119,15 +118,12 @@ function draw(position){
 
 //define dragstart, drag and dragStop
 function dragStart(event) {
-
   dragging = true;
   dragStartLocation = getCanvasCoordinates(event);
   takeSnapShot();
-
 }
 
 function drag(event) {
-
   var position;
   if (dragging === true) {
     restoreSnapShot();
@@ -136,8 +132,9 @@ function drag(event) {
     draw(position)
   }
 }
-function dragStop(event) {
 
+//Drag Stop
+function dragStop(event) {
   dragging = false; //dragging stops here
   restoreSnapShot();
   var position = getCanvasCoordinates(event);
@@ -145,15 +142,21 @@ function dragStop(event) {
   draw(position)
 }
 
+//Line Width Here
 function changeLineWidth(){
   context.lineWidth = this.value;
   //**important**
   //event.stopPropagation() prevents the vent from bubblim up the DOM tree, preventing any parent handlers from being notified of the event.
   event.stopPropagation();
 }
-
+//Fill Color
 function changeFillStyle(){
   context.fillStyle = this.value;
+  event.stopPropagation();
+}
+//Stroke Color
+function changeStrokeStyle(){
+  context.strokeStyle = this.value;
   event.stopPropagation();
 }
 
@@ -163,8 +166,9 @@ function init(){
   context = canvas.getContext('2d');
 
   var lineWidth = document.getElementById('lineWidth'),
-  fillColor = document.getElementById('fillColor');
-  context.strokeStyle = 'rebeccapurple';
+  fillColor = document.getElementById('fillColor'),
+  strokeColor = document.getElementById('strokeColor');
+  // context.strokeStyle = 'rebeccapurple';
 
   // var imgElement = document.getElementById("logo");
   // context.fillStyle = context.createPattern(imgElement, 'repeat');
@@ -175,12 +179,13 @@ function init(){
   context.globalCompositeOperation = 'xor';
 
 
-  //mouseup,down, drag - will be used in functions above
+  //event listeners below
   canvas.addEventListener('mousedown', dragStart, false);
   canvas.addEventListener('mousemove', drag, false);
   canvas.addEventListener('mouseup', dragStop, false);
   lineWidth.addEventListener('input', changeLineWidth, false);
   fillColor.addEventListener('input', changeFillStyle, false);
+  strokeColor.addEventListener('input', changeStrokeStyle, false);
 }
 
 window.addEventListener('load', init, false);
