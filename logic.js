@@ -95,7 +95,7 @@ function draw(position) {
 // ,     polygonAngle = document.getElementById('polygonAngle').value
         , polygonAngle = calculateAngle(dragStartLocation, position)
         , lineCap = document.querySelector('input[type="radio"][name="lineCap"]:checked').value
-// ,     writeCanvas = document.getElementById('writeCanvas').value;
+,         writeCanvas = document.getElementById('textInput').value;
 
     //global context
     context.lineCap = lineCap;
@@ -193,8 +193,8 @@ function eraseCanvas() {
 
 //write on canvas
 function writeCanvas() {
-    context.font = '55px Impact';
-    context.fillText(typingCanvas, 55, 175);
+    context.font = '25px Impact';
+    context.fillText(textInput, 55, 175);
 }
 
 //function invoked when document is fully loaded
@@ -234,7 +234,7 @@ function init() {
     strokeColor.addEventListener('input', changeStrokeStyle, false);
     canvasColor.addEventListener('input', changeBackgroundColor, false);
     clearCanvas.addEventListener('click', eraseCanvas, false);
-    // textInput.addEventListener('input', writeCanvas, false);
+    textInput.addEventListener('input', writeCanvas, false);
 }
 
 window.addEventListener('load', init, false);
