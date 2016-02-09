@@ -57,8 +57,10 @@ function drawEllipse(position) {
 
 
 function drawRect(position) {
+    var index = 0;
+    var radius = Math.sqrt(Math.pow((dragStartLocation.x - position.x), 2) + Math.pow((dragStartLocation.y - position.y), 2));
     context.beginPath();
-    context.rect(dragStartLocation.x, dragStartLocation.y, position.x, position.y);
+    context.rect(dragStartLocation.x, dragStartLocation.y, radius, (radius * 2));
 }
 
 
@@ -67,7 +69,7 @@ function drawPolygon(position, sides, angle) {
         radius = Math.sqrt(Math.pow((dragStartLocation.x - position.x), 2) + Math.pow((dragStartLocation.y - position.y), 2)),
         index = 0;
 
-    for (index = 0; index < sides; index++) {
+    for (index; index < sides; index++) {
         coordinates.push({
             x: dragStartLocation.x + radius * Math.cos(angle),
             y: dragStartLocation.y - radius * Math.sin(angle)
