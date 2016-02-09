@@ -193,8 +193,9 @@ function eraseCanvas() {
 
 //write on canvas
 function writeCanvas() {
-    context.font = '25px Impact';
-    context.fillText(textInput, 55, 175);
+    context.font = '55px Impact';
+    context.fillText(textInput.value, 25, 175);
+    console.log(textInput.value);
 }
 
 //function invoked when document is fully loaded
