@@ -4,46 +4,57 @@
     <meta charset="utf-8">
     <title>Edvard's Canvas Drawer</title>
     <link rel="stylesheet" href="style.css" media="screen" title="no title" charset="utf-8">
-
+    <link rel="stylesheet" href="resources/buttons.css" media="screen" title="no title" charset="utf-8">
   </head>
   <body>
 
 
   <div class="controls">
+    <h3>Shape:</h3>
+    <div class='lightBorder' >
     <p><input type="radio" name="shape" value="line" checked="checked"> Line</p>
     <p><input type="radio" name="shape" value="rect"> Rectangle</p>
     <p><input type="radio" name="shape" value="circle"> Circle</p>
     <p><input type="radio" name="shape" value="square"> Square</p>
     <p><input type="radio" name="shape" value="ellipse"> Ellipse</p>
     <p><input type="radio" name="shape" value="polygon"> Polygon</p>
-    <br>
-    <p><label for="">Line Width: <input id='lineWidth' type='range' step='1' min="1" max="200" value="4"</label></p>
-    <br>
+  </div>
+    <h3>Line Type:</h3>
+    <div class='lightBorder'>
+    <p><label>Line Width: <input id='lineWidth' type='range' step='1' min="1" max="200" value="4"></label></p>
     Line End:
     <p><input name="lineCap" value="round" type='radio' checked="checked">round</p>
     <p><input name="lineCap" value="square" type='radio'>square</p>
-    <br>
+    <p><input name="lineCap" value="butt" type='radio'>butt</p>
+
+  </div>
+  <h3>Colors:</h3>
+    <div class='lightBorder'>
+
     <!-- color -->
-    <p><label>Fill Color: <input id='fillColor' type='color' step='1' value="#24B0D5"</label></p>
-    <p><label>Stroke Color: <input id='strokeColor' type='color' step='1' </label></p>
-    <br>
-    <p><label>Background Color: <input id='backgroundColor' type='color' step='1' value="#ffffff"</label></p>
+    <p><label>Fill Color:______ <input id='fillColor' type='color' step='1' value="#24B0D5"></label></p>
+    <p><label>Stroke Color:____ <input id='strokeColor' type='color' step='1'> </label></p>
+    <p><label>Background Color:<input id='backgroundColor' type='color' step='1' value="#ffffff"></label></p>
     *changing background will delete image!
-    <br>
-    <br>
+  </div>
+    <div class='lightBorder'>
     <!-- polygon sides -->
-    <p><label for="">Polygon Sides: <input id='polygonSides' type='range' step='1' min="3" max="12"</label></p>
-    <!-- pi * 8 = 22.5 -->
-    <p><label for="">Polygon Angle: <input id='polygonAngle' type='range' step='22.5' min="3" max="90"</label></p>
+    <p><label>Polygon Sides: <input id='polygonSides' type='range' step='1' min="3" max="12"></label></p>
+
+  </div>
+
+  <form>
+  <h3>Input Text:</h3> <input type="text" name="writeCanvas" id="textInput" onkeydown="writeCanvas()"/> <input type="submit" value="Submit" />
+  </form>
 
     <!-- fill or no fill, you decide -->
     <p><label>Fill: <input id='fillBox' type='checkbox' checked='checked'></label></p>
 
-    <button type="button" id="clearCanvas" name="button">Clear Canvas</button>
-    <!-- <p><input id="clearCanvas" type="button" value"Clear Canvas"></p> -->
+    <button type="button" class="button-error pure-button" id="clearCanvas" name="button">Clear Canvas</button>
   </div>
-<!-- <img src="resources/edvard.jpg" alt="" id="logo" /> -->
-<canvas id="canvas" width="650" height="800"></canvas>
+
+
+  <canvas id="canvas" width="650" height="800"></canvas>
 
     <script src="logic.js" charset="utf-8"></script>
   </body>
