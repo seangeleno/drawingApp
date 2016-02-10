@@ -57,8 +57,7 @@ function drawEllipse(position) {
 
 
 function drawRect(position) {
-    var index = 0;
-    var radius = Math.sqrt(Math.pow((dragStartLocation.x - position.x), 2) + Math.pow((dragStartLocation.y - position.y), 2));
+    var radius = (dragStartLocation.y - position.y) - (dragStartLocation.x - position.x);
     context.beginPath();
     context.rect(dragStartLocation.x, dragStartLocation.y, radius, (radius * 2));
 }
