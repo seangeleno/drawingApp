@@ -47,19 +47,24 @@ function drawCircle(position) { //takes position during mouse up
 
 
 function drawEllipse(position) {
-
+  var w = position.x - dragStartLocation.x ;
+  var h = position.y - dragStartLocation.y  ;
     var radius = Math.sqrt(Math.pow((dragStartLocation.x - position.x), 2) + Math.pow((dragStartLocation.y - position.y), 2));
     context.beginPath();
     //Used the .ellipse method instead of arc to give an extra radius, radius x and radius
+    var cw = (dragStartLocation.x > position.x) ? true : false;
 
-    context.ellipse(dragStartLocation.x, dragStartLocation.y, radius, 75, 45, 2 * Math.PI, false);
+    console.log(cw);
+    context.ellipse(dragStartLocation.x, dragStartLocation.y, Math.abs(w), Math.abs(h), 0, 2 * Math.PI, false);
 }
 
 
 function drawRect(position) {
-    var radius = (dragStartLocation.y - position.y) - (dragStartLocation.x - position.x);
+  console.log(position.x, dragStartLocation.x);
+    var w = position.x - dragStartLocation.x ;
+    var h = position.y - dragStartLocation.y  ;
     context.beginPath();
-    context.rect(dragStartLocation.x, dragStartLocation.y, radius, (radius * 2));
+    context.rect(dragStartLocation.x, dragStartLocation.y, w, h);
 }
 
 
@@ -96,10 +101,12 @@ function draw(position) {
 // ,     polygonAngle = document.getElementById('polygonAngle').value
         , polygonAngle = calculateAngle(dragStartLocation, position)
         , lineCap = document.querySelector('input[type="radio"][name="lineCap"]:checked').value
-,         writeCanvas = document.getElementById('textInput').value;
+        , writeCanvas = document.getElementById('textInput').value
+        , xor = document.getElementById('xor');
 
     //global context
     context.lineCap = lineCap;
+    
     //we don't need even't handlers because before drawing we are jsut taking a default value
 
     if (shape === "circle") {
@@ -120,7 +127,11 @@ function draw(position) {
     if (shape === "polygon") {
         drawPolygon(position, polygonSides, polygonAngle * (Math.PI / 180));
     }
-
+    if (xor.checked){
+      context.globalCompositeOperation = "xor";
+    } else {
+      context.globalCompositeOperation = "source-over";
+    }
     if (fillBox.checked) {
         context.fill();
     } else {
