@@ -28,37 +28,36 @@ function restoreSnapShot() {
 }
 //Draw Functions
 function draw(position) {
-  
+
     var fillBox = document.getElementById("fillBox");
     var shape = document.querySelector('input[type="radio"][name="shape"]:checked').value;
-    var polygonSides = document.getElementById('polygonSides').valu;
+    var polygonSides = document.getElementById('polygonSides').value;
     var polygonAngle = calculateAngle(dragStartLocation, position);
     var lineCap = document.querySelector('input[type="radio"][name="lineCap"]:checked').value;
     var writeCanvas = document.getElementById('textInput').value;
     var xor = document.getElementById('xor');
+    context.lineCap = lineCap;
 
     switch (shape) {
-        case "circle":
-            drawCircle(position);
+      case "circle":
+            iwannadrawa.circle(position);
             break;
         case "square":
-            drawPolygon(position, 4, Math.PI / 4);
+            iwannadrawa.square(position);
             break;
         case "line":
-            drawLine(position);
+            iwannadrawa.line(position);
             break;
         case "ellipse":
-            drawEllipse(position);
+            iwannadrawa.ellipse(position);
             break;
-        case "rect":
-            drawRect(position);
+        case "rectangle":
+            iwannadrawa.rectangle(position);
             break;
         case "polygon":
-            drawPolygon(position, polygonSides, polygonAngle * (Math.PI / 180));
+            iwannadrawa.polygon(position, polygonSides, polygonAngle * (Math.PI / 180));
             break;
     }
-
-    context.lineCap = lineCap;
 
     if (xor.checked) {
         context.globalCompositeOperation = "xor";
@@ -70,23 +69,21 @@ function draw(position) {
     } else {
         context.stroke();
     }
-
   }
 
-function drawLine(position) {
+var iwannadrawa = {
+  line: function (position) {
     context.beginPath();
     context.moveTo(dragStartLocation.x, dragStartLocation.y);
     context.lineTo(position.x, position.y);
     context.stroke();
-}
-
-function drawCircle(position) {
+  },
+  circle: function (position) {
     var radius = Math.sqrt(Math.pow((dragStartLocation.x - position.x), 2) + Math.pow((dragStartLocation.y - position.y), 2));
     context.beginPath();
     context.arc(dragStartLocation.x, dragStartLocation.y, radius, 0, 2 * Math.PI);
-}
-
-function drawEllipse(position) {
+  },
+  ellipse: function (position) {
     var w = position.x - dragStartLocation.x;
     var h = position.y - dragStartLocation.y;
     var radius = Math.sqrt(Math.pow((dragStartLocation.x - position.x), 2) + Math.pow((dragStartLocation.y - position.y), 2));
@@ -94,21 +91,18 @@ function drawEllipse(position) {
     var cw = (dragStartLocation.x > position.x) ? true : false;
     console.log(cw);
     context.ellipse(dragStartLocation.x, dragStartLocation.y, Math.abs(w), Math.abs(h), 0, 2 * Math.PI, false);
-}
-
-function drawRect(position) {
+  },
+  rectangle: function (position) {
     console.log(position.x, dragStartLocation.x);
     var w = position.x - dragStartLocation.x;
     var h = position.y - dragStartLocation.y;
     context.beginPath();
     context.rect(dragStartLocation.x, dragStartLocation.y, w, h);
-}
-
-function drawPolygon(position, sides, angle) {
-    var coordinates = [],
-        radius = Math.sqrt(Math.pow((dragStartLocation.x - position.x), 2) + Math.pow((dragStartLocation.y - position.y), 2)),
-        index = 0;
-    for (index; index < sides; index++) {
+  },
+  polygon: function (position, sides, angle) {
+    var coordinates = [];
+    var radius = Math.sqrt(Math.pow((dragStartLocation.x - position.x), 2) + Math.pow((dragStartLocation.y - position.y), 2));
+    for (var index = 0; index < sides; index++) {
         coordinates.push({
             x: dragStartLocation.x + radius * Math.cos(angle),
             y: dragStartLocation.y - radius * Math.sin(angle)
@@ -117,11 +111,12 @@ function drawPolygon(position, sides, angle) {
     }
     context.beginPath();
     context.moveTo(coordinates[0].x, coordinates[0].y);
-    for (index = 0; index < sides; index++) {
+    for (var index = 0; index < sides; index++) {
         context.lineTo(coordinates[index].x, coordinates[index].y);
     }
     context.closePath();
-}
+  }
+};
 
 //Drag Functions
 function dragStart(event) {
