@@ -8,10 +8,12 @@ canvas {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+
 #canvas1 {
     margin-left: 1150px;
     margin-top: 30px;
 }
+
 .controls {
     width: 200px;
     padding: 12px;
@@ -36,12 +38,14 @@ canvas {
     /* IE 10+ */
     user-select: none;
 }
+
 .controls h3 {
     color: #3D3D3D;
     text-transform: uppercase;
     font-size: 11px;
     line-height: 10px;
 }
+
 .lightBorder {
     border: 1px solid #B6B6B6;
     margin-top: 10px;
@@ -51,30 +55,95 @@ canvas {
     background: #EEEEEE;
     box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.1);
 }
+
 h1 {
     margin-left: 300px;
 }
+
 p {
     margin: 4px;
 }
+
 .button-success, .button-error, .button-warning, .button-secondary {
     color: white;
     border-radius: 4px;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
+
 .button-success {
     background: rgb(28, 184, 65);
     /* this is a green */
 }
+
 .button-error {
     background: rgb(202, 60, 60);
     /* this is a maroon */
 }
+
 .button-warning {
     background: rgb(223, 117, 20);
     /* this is an orange */
 }
+
 .button-secondary {
     background: rgb(66, 184, 221);
     /* this is a light blue */
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    opacity: 0;
+    /* make things invisible upon start */
+    -webkit-animation: fadeIn ease-in 1;
+    /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+    -moz-animation: fadeIn ease-in 1;
+    animation: fadeIn ease-in 1;
+    -webkit-animation-fill-mode: forwards;
+    /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+    -moz-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    animation-duration: 1s;
+}
+.fade-in-2 {
+    opacity: 0;
+    /* make things invisible upon start */
+    -webkit-animation: fadeIn ease-in 1;
+    /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+    -moz-animation: fadeIn ease-in 1;
+    animation: fadeIn ease-in 1;
+    -webkit-animation-fill-mode: forwards;
+    /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+    -moz-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-duration: 1.5s;
+    -moz-animation-duration: 1.5s;
+    animation-duration: 1.5s;
 }

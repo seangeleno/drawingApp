@@ -1,3 +1,15 @@
+//module design pattern
+(function canvasDrawer () {
+
+    // declare private variables and/or functions
+
+    return {
+      // declare public variables and/or functions
+    }
+
+})();
+
+
 var canvas;
 var context;
 var dragging = false;
