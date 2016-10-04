@@ -1,6 +1,6 @@
 var canvas;
 var context;
-var dragging = false; 
+var dragging = false;
 var dragStartLocation;
 var snapshot;
 window.addEventListener('load', init, false);
@@ -8,30 +8,84 @@ window.addEventListener('load', init, false);
 function calculateAngle(start, current) {
     var angle = 360 - Math.atan2(current.y - start.y, current.x - start.x) * 180 / Math.PI;
     return angle;
-  }
+}
+
 function getCanvasCoordinates(event) {
     var x = event.clientX - canvas.getBoundingClientRect().left;
     var y = event.clientY - canvas.getBoundingClientRect().top;
-    return { x: x, y: y };
+    return {
+        x: x,
+        y: y
+    };
 }
+
 function takeSnapShot() {
     snapshot = context.getImageData(0, 0, canvas.width, canvas.height);
 }
+
 function restoreSnapShot() {
     context.putImageData(snapshot, 0, 0);
 }
 //Draw Functions
+function draw(position) {
+  
+    var fillBox = document.getElementById("fillBox");
+    var shape = document.querySelector('input[type="radio"][name="shape"]:checked').value;
+    var polygonSides = document.getElementById('polygonSides').valu;
+    var polygonAngle = calculateAngle(dragStartLocation, position);
+    var lineCap = document.querySelector('input[type="radio"][name="lineCap"]:checked').value;
+    var writeCanvas = document.getElementById('textInput').value;
+    var xor = document.getElementById('xor');
+
+    switch (shape) {
+        case "circle":
+            drawCircle(position);
+            break;
+        case "square":
+            drawPolygon(position, 4, Math.PI / 4);
+            break;
+        case "line":
+            drawLine(position);
+            break;
+        case "ellipse":
+            drawEllipse(position);
+            break;
+        case "rect":
+            drawRect(position);
+            break;
+        case "polygon":
+            drawPolygon(position, polygonSides, polygonAngle * (Math.PI / 180));
+            break;
+    }
+
+    context.lineCap = lineCap;
+
+    if (xor.checked) {
+        context.globalCompositeOperation = "xor";
+    } else {
+        context.globalCompositeOperation = "source-over";
+    }
+    if (fillBox.checked) {
+        context.fill();
+    } else {
+        context.stroke();
+    }
+
+  }
+
 function drawLine(position) {
     context.beginPath();
     context.moveTo(dragStartLocation.x, dragStartLocation.y);
     context.lineTo(position.x, position.y);
     context.stroke();
 }
+
 function drawCircle(position) {
     var radius = Math.sqrt(Math.pow((dragStartLocation.x - position.x), 2) + Math.pow((dragStartLocation.y - position.y), 2));
     context.beginPath();
     context.arc(dragStartLocation.x, dragStartLocation.y, radius, 0, 2 * Math.PI);
 }
+
 function drawEllipse(position) {
     var w = position.x - dragStartLocation.x;
     var h = position.y - dragStartLocation.y;
@@ -41,6 +95,7 @@ function drawEllipse(position) {
     console.log(cw);
     context.ellipse(dragStartLocation.x, dragStartLocation.y, Math.abs(w), Math.abs(h), 0, 2 * Math.PI, false);
 }
+
 function drawRect(position) {
     console.log(position.x, dragStartLocation.x);
     var w = position.x - dragStartLocation.x;
@@ -48,6 +103,7 @@ function drawRect(position) {
     context.beginPath();
     context.rect(dragStartLocation.x, dragStartLocation.y, w, h);
 }
+
 function drawPolygon(position, sides, angle) {
     var coordinates = [],
         radius = Math.sqrt(Math.pow((dragStartLocation.x - position.x), 2) + Math.pow((dragStartLocation.y - position.y), 2)),
@@ -66,50 +122,14 @@ function drawPolygon(position, sides, angle) {
     }
     context.closePath();
 }
-function draw(position) {
-    var fillBox = document.getElementById("fillBox");
-    var shape = document.querySelector('input[type="radio"][name="shape"]:checked').value;
-    var polygonSides = document.getElementById('polygonSides').valu;
-    var polygonAngle = calculateAngle(dragStartLocation, position);
-    var lineCap = document.querySelector('input[type="radio"][name="lineCap"]:checked').value;
-    var writeCanvas = document.getElementById('textInput').value;
-    var xor = document.getElementById('xor');
-    context.lineCap = lineCap;
-    if (shape === "circle") {
-        drawCircle(position);
-    }
-    if (shape === "square") {
-        drawPolygon(position, 4, Math.PI / 4);
-    }
-    if (shape === "line") {
-        drawLine(position);
-    }
-    if (shape === "ellipse") {
-        drawEllipse(position);
-    }
-    if (shape === "rect") {
-        drawRect(position);
-    }
-    if (shape === "polygon") {
-        drawPolygon(position, polygonSides, polygonAngle * (Math.PI / 180));
-    }
-    if (xor.checked) {
-        context.globalCompositeOperation = "xor";
-    } else {
-        context.globalCompositeOperation = "source-over";
-    }
-    if (fillBox.checked) {
-        context.fill();
-    } else {
-        context.stroke();
-    }
-}
+
 //Drag Functions
 function dragStart(event) {
     dragging = true;
     dragStartLocation = getCanvasCoordinates(event);
     takeSnapShot();
 }
+
 function drag(event) {
     var position;
     if (dragging === true) {
@@ -118,6 +138,7 @@ function drag(event) {
         draw(position);
     }
 }
+
 function dragStop(event) {
     dragging = false;
     restoreSnapShot();
@@ -130,20 +151,24 @@ function changeLineWidth() {
     //event.stopPropagation() prevents the event from bubbling up the DOM tree, parent handlers are not notified of the event.
     event.stopPropagation();
 }
+
 function changeFillStyle() {
     context.fillStyle = this.value;
     event.stopPropagation();
 }
+
 function changeStrokeStyle() {
     context.strokeStyle = this.value;
     event.stopPropagation();
 }
+
 function changeBackgroundColor() {
     context.save();
     context.fillStyle = document.getElementById('backgroundColor').value;
     context.fillRect(0, 0, canvas.width, canvas.height);
     context.restore();
 }
+
 function init() {
     // Create Canvas
     canvas = document.getElementById('canvas');
@@ -169,12 +194,14 @@ function init() {
     canvasColor.addEventListener('input', changeBackgroundColor, false);
     clearCanvas.addEventListener('click', eraseCanvas, false);
     textInput.addEventListener('input', writeCanvas, false);
-  }
+}
+
 function writeCanvas() {
     context.font = '55px Impact';
     context.fillText(textInput.value, 25, 175);
     console.log(textInput.value);
-  }
+}
+
 function eraseCanvas() {
     context.clearRect(0, 0, canvas.width, canvas.height);
 }
